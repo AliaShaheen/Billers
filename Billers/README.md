@@ -1,14 +1,21 @@
+# Billers
 -When we call billers to inquiry about customers bills we received thier response containing all bills related to the customer, and ofcourse there are different message formats used by billers, i.e. Jordan Electricity repsonsed to our bill inquiry using JSON Format, while water authority responsed using XML format, and we have to validate the response for :
 
--Following fields should exists "Bill Due Date, Amount"
-Bill due date should not be future date.
-Amount should be of valid format in Jordainian Dinar.
-Fees is optional and incase its thier it should be valid format in Jordainian Dinar and less than Amount.
+-For the JSON Parser I used ObjectMapper to get list of bills object
 
+-And for XML Parser Used DocumentBuilderFactory and NodeList to get the bills.
 
--I faced an issue while trying to parse the responses with the date format :
-There was an issue while trying to parse the JSON response with the date format; fixed this by using JsonFormat annotation in Bill class.
+-There was an issue while trying to parse the JSON response with the date format; fixed this by using JsonFormat annotation in Bill class.
 
+-I Added BillInquiryExceptionReason enum with the validation error types, used them to throw a new Exception of type InvalidBillInquiryResponse with the proper error message after validating the bill.
+
+-Also I added BillValidator to validate the below points from the JSON and the XML Parser:
+1-Bill Due Date, Amount are required
+2-Bill due date should not be future date.
+3-Amount should be of valid format in Jordainian Dinar.
+4-Fees is optional and incase its thier it should be valid format in Jordainian Dinar and less than Amount.
+
+-Further comments will be found on the scr code.
 
 -Some test cases are added to ParseInquiryResponseTest for both XML and JSON parsers.
 -The original test cases:
@@ -46,5 +53,3 @@ Result: BillValidator.validate(), error while validating bill: MISSING_AMOUNT
 test case #8: test if the provided XML response have a missing dueDate
 givenInvalidJSONResponse_WhenParse_ThenThrowException
 Result: BillValidator.validate(), error while validating bill: MISSING_DUE_DATE
-
-
