@@ -1,6 +1,10 @@
 # Billers
 -When we call billers to inquiry about customers bills we received thier response containing all bills related to the customer, and ofcourse there are different message formats used by billers, i.e. Jordan Electricity repsonsed to our bill inquiry using JSON Format, while water authority responsed using XML format, and we have to validate the response for :
 
+-For the JSON Parser I used ObjectMapper to get list of bills object
+
+-And for XML Parser Used DocumentBuilderFactory and NodeList to get the bills.
+
 -There was an issue while trying to parse the JSON response with the date format; fixed this by using JsonFormat annotation in Bill class.
 
 -I Added BillInquiryExceptionReason enum with the validation error types, used them to throw a new Exception of type InvalidBillInquiryResponse with the proper error message after validating the bill.
