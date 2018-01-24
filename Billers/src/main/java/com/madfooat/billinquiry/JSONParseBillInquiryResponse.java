@@ -41,6 +41,7 @@ public class JSONParseBillInquiryResponse implements ParseBillInquiryResponse {
 
 	public List<Bill> jsonArrayToObjectList(String json, Class<Bill> tClass)
 			throws IOException {
+		//use ObjectMapper to get list of bills objects
 		ObjectMapper mapper = new ObjectMapper();
 		CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, tClass);
 		List<Bill> listofBills = mapper.readValue(json, listType);
